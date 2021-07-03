@@ -101,6 +101,9 @@ void print(TreeNode<int> *root)
 
 int numNodes(TreeNode<int> *root)
 {
+    if(root ==NULL){
+        return 0;
+    }
     int ans = 1;
     for (int i = 0; i < root->children.size(); i++)
     {
@@ -111,6 +114,9 @@ int numNodes(TreeNode<int> *root)
 
 int sumNodes(TreeNode<int> *root)
 {
+    if(root == NULL){
+        return 0;
+    }
     queue<TreeNode<int> *> pendingNodes;
     pendingNodes.push(root);
     int sum = 0;
@@ -128,6 +134,10 @@ int sumNodes(TreeNode<int> *root)
 }
 
 int maxDataNode(TreeNode<int> *root){
+    if(root == NULL)
+    {
+        return 0;
+    }
     queue<TreeNode<int> *> pendingNodes;
     pendingNodes.push(root);
     int max = 0;
@@ -145,6 +155,9 @@ int maxDataNode(TreeNode<int> *root){
 }
 
 int getHeight(TreeNode<int> *root){
+    if(root == NULL){
+        return 0;
+    }
     if(root -> children.size() == 0){
         return 1;
     }
@@ -157,17 +170,33 @@ int getHeight(TreeNode<int> *root){
     }
     return height + 1;
 }
+
+void printAtLevelK(TreeNode<int> *root, int k){
+    if(root == NULL){
+        return;
+    }
+    if(k == 0){
+        cout << root->data << endl;
+        return;
+    }
+
+    for (int i = 0; i < root->children.size(); i++){
+        printAtLevelK(root->children[i], k-1);
+    }
+}
 //1 3 2 3 4 2 5 6 0 0 0 0
 int main()
 {
 
     TreeNode<int> *root = inputLevelWise();
-    // printLevelWise(root);
-    int num = numNodes(root);
-    cout << num << endl;
-    cout << sumNodes(root) << endl;
-    cout << maxDataNode(root) << endl;
-    cout << getHeight(root) << endl;
+    printLevelWise(root);
+
+    printAtLevelK(root, 2);
+    // int num = numNodes(root);
+    // cout << num << endl;
+    // cout << sumNodes(root) << endl;
+    // cout << maxDataNode(root) << endl;
+    // cout << getHeight(root) << endl;
 
     /*  TreeNode<int> *root = new TreeNode<int>(1);
     TreeNode<int> *node1 = new TreeNode<int>(2);
