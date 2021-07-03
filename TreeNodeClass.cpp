@@ -198,13 +198,24 @@ int countLeafNodes(TreeNode<int> *root){
     }
     return smallAns + 1;
 }
+
+void postOrder(TreeNode<int> *root){
+    if(root == NULL){
+        return;
+    }
+    for (int i = 0; i < root->children.size(); i++){
+        postOrder(root->children[i]);
+    }
+    cout << root->data << " ";
+}
 //1 3 2 3 4 2 5 6 0 0 0 0
 int main()
 {
 
     TreeNode<int> *root = inputLevelWise();
     printLevelWise(root);
-    cout << countLeafNodes(root) << endl;
+    postOrder(root);
+    // cout << countLeafNodes(root) << endl;
 
     // printAtLevelK(root, 2);
 
