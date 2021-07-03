@@ -199,7 +199,20 @@ int countLeafNodes(TreeNode<int> *root){
     return smallAns + 1;
 }
 
-void postOrder(TreeNode<int> *root){
+void preOrder(TreeNode<int> *root){
+    if(root == NULL){
+        return;
+    }
+
+    cout << root->data << endl;
+
+    for (int i = 0; i < root->children.size(); i++){
+        preOrder(root->children[i]);
+    }
+}
+
+ void postOrder(TreeNode<int> *root)
+{
     if(root == NULL){
         return;
     }
