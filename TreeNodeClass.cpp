@@ -138,6 +138,18 @@ int sumNodes(TreeNode<int> *root)
     return sum;
 }
 
+int sumNodesRecursive(TreeNode<int> *root){
+    if(root == NULL){
+        return 0;
+    }
+    int rootData = root->data;
+    int smallAns = 0;
+    for (int i = 0; i < root->children.size(); i++){
+        smallAns += sumNodesRecursive(root->children[i]);
+    }
+    return rootData + smallAns;
+}
+
 int maxDataNode(TreeNode<int> *root){
     if(root == NULL)
     {
@@ -157,6 +169,20 @@ int maxDataNode(TreeNode<int> *root){
         }
     }
     return max;
+}
+
+TreeNode<int>* maxDataNodeRecursive(TreeNode <int> *root){
+    if(root == NULL){
+        return 0;
+    }
+    TreeNode<int> *maxNode = root;
+    for (int i = 0; i < root->children.size(); i++){
+        TreeNode<int> *temp = maxDataNodeRecursive(root->children[i]);
+        if(temp -> data > maxNode -> data){
+            maxNode = temp;
+        }
+        return maxNode;
+    }
 }
 
 int getHeight(TreeNode<int> *root){
@@ -238,8 +264,13 @@ int main()
 {
 
     TreeNode<int> *root = inputLevelWise();
-    printLevelWise(root);
-    postOrder(root);
+
+    cout << sumNodesRecursive(root);
+    cout << endl;
+    cout << sumNodes(root);
+    // printLevelWise(root);
+    // cout << getHeight(root) << endl;
+    // postOrder(root);
     deleteTree(root);
     // cout << countLeafNodes(root) << endl;
 
