@@ -293,11 +293,39 @@ int greaterThanX(TreeNode<int> *root, int x){
     return count;
 }
 
+TreeNode<int> *maxSumNode(TreeNode<int> *root){
+    if(root == NULL){
+        return 0;
+    }
+    int ans = 0;
+    TreeNode<int> *ansNode = root;
+    queue<TreeNode<int> *> pendingNodes;
+    pendingNodes.push(root);
+    while(pendingNodes.size() != 0){
+        TreeNode<int> *front = pendingNodes.front();
+        pendingNodes.pop();
+        int temp = 0;
+        for (int i = 0; i < front->children.size(); i++){
+            temp += front->children[i]->data;
+            pendingNodes.push(front->children[i]);
+        }
+        temp = temp + front->data;
+        if(temp > ans){
+            ans = temp;
+            ansNode = front;
+        }
+    }
+    return ansNode;
+}
+
 //1 3 2 3 4 2 5 6 0 0 0 0
 int main()
 {
 
     TreeNode<int> *root = inputLevelWise();
+
+    TreeNode<int> *ansNode = maxSumNode(root);
+    cout << ansNode ->data << endl;
     cout << greaterThanX(root, 2);
     cout << endl;
     bool ans = containsX(root, 8);
