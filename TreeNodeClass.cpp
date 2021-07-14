@@ -259,15 +259,59 @@ void deleteTree(TreeNode<int> *root){
     }
     delete root;
 }
+
+// Assignment questions 
+
+bool containsX(TreeNode<int> *root, int x){
+    if(root == NULL){
+        return false;
+    }
+    if(root -> data == x){
+        return true;
+    }
+    bool ans = false;
+    for (int i = 0; i < root->children.size(); i++){
+        ans = containsX(root->children[i], x);
+        if(ans == true){
+            return true;
+        }
+    }
+    return ans;
+}
+
+int greaterThanX(TreeNode<int> *root, int x){
+    if(root == NULL){
+        return 0;
+    }
+    if(root -> data > x){
+        return 1;
+    }
+    int count = 0;
+    for (int i = 0; i < root->children.size(); i++){
+        count += greaterThanX(root->children[i], x);
+    }
+    return count;
+}
+
 //1 3 2 3 4 2 5 6 0 0 0 0
 int main()
 {
 
     TreeNode<int> *root = inputLevelWise();
-
-    cout << sumNodesRecursive(root);
+    cout << greaterThanX(root, 2);
     cout << endl;
-    cout << sumNodes(root);
+    bool ans = containsX(root, 8);
+    if(ans == true){
+        cout << "True" << endl;
+    }
+    else{
+        cout << "false";
+    }
+
+    /*   cout << sumNodesRecursive(root);
+    cout << endl;
+    cout << sumNodes(root); 
+    */
     // printLevelWise(root);
     // cout << getHeight(root) << endl;
     // postOrder(root);
